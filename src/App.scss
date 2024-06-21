@@ -1,0 +1,27 @@
+main {
+    background-image: url('wallpapers/horizon.jpg');
+    background-position: center;
+
+    background-size: 150%;
+    width: 100vw;
+    height: 100dvh;
+}
+
+.black-transition {
+    position: absolute;
+    background-color: #000;
+    pointer-events: none;
+
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100dvh;
+    z-index: 100;
+
+    &.fade {
+        animation:
+            fade 0.5s ease-in-out,
+            fade 0.5s 0.5s ease-in-out forwards reverse;
+    }
+}

@@ -1,0 +1,65 @@
+@keyframes loading {
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUp {
+    from {
+        translate: 0 20px;
+        opacity: 0;
+    }
+
+    to {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+@keyframes lockScreenFadeOut {
+    from {
+        opacity: 1;
+        top: 50%;
+    }
+
+    to {
+        opacity: 0;
+        top: -10%;
+    }
+}
+
+@keyframes unlockScreenFadeIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes taskBarPopUp {
+    from {
+        transform: translateY(130%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}

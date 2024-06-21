@@ -1,0 +1,63 @@
+@import '../../scss/animations.scss';
+
+.desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+
+    .items {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        flex: 1;
+        width: 100%;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .task-bar {
+        background-color: #00000015;
+        display: flex;
+        justify-content: center;
+        width: fit-content;
+        overflow: hidden;
+
+        height: 60px;
+        border-radius: 10px;
+        margin: 10px;
+        margin-bottom: 15px;
+
+        box-shadow: 0 0 10px 1px #0000003c;
+        backdrop-filter: blur(10px);
+        transform: translateY(130%);
+        animation: taskBarPopUp 500ms 500ms forwards ease;
+
+        button {
+            cursor: default;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 60px;
+            transition-duration: 200ms;
+
+            &:hover {
+                background-color: #ffffff09;
+            }
+
+            &:active {
+                .icon {
+                    scale: 0.9;
+                }
+            }
+
+            .icon {
+                color: #fff;
+                transition-duration: 200ms;
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.app-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+
+    width: 80px;
+    padding: 10px;
+    transition-duration: 200ms;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #ffffff0e;
+    }
+
+    span {
+        cursor: default;
+
+        font-size: 0.9rem;
+
+        &::selection {
+            background-color: transparent;
+        }
+    }
+}
