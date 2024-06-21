@@ -4,6 +4,8 @@ import './lock-screen.scss';
 import { AiFillCaretRight, AiOutlineLoading } from 'react-icons/ai';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
+import userImg from '../../assets/images/user.png';
+
 function LockScreen({ logged }) {
     const date = new Date();
 
@@ -87,7 +89,7 @@ function LockScreen({ logged }) {
             <div className={unlockScreenProps.className}>
                 <div className="container">
                     <div>
-                        <img src="images/user.png" alt="" className='user' />
+                        <img src={userImg} alt="" className='user' />
                         <h2>John Doe</h2>
                     </div>
 
