@@ -1,0 +1,76 @@
+@import '../../scss/animations.scss';
+
+.window-container {
+    background-color: #fff;
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 30px 0 #00000020;
+
+    &.active {
+        box-shadow: 0 0 30px 0 #0000004d;
+    }
+
+    .window {
+        height: 100%;
+
+        .window-header {
+            font-weight: bold;
+            color: #000000a2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            transition-duration: 1s;
+
+            box-shadow: 0 2px 5px 0 #00000043;
+
+            &:active {
+                background-color: #dcdcdc;
+
+                transition-duration: 0ms;
+            }
+
+            * {
+                cursor: default;
+            }
+
+            .info {
+                flex: 1;
+                padding: 3px 10px;
+            }
+
+            .actions {
+                display: flex;
+
+                button {
+                    background-color: transparent;
+                    display: flex;
+                    align-items: center;
+
+                    padding: 5px 15px;
+                    transition-duration: 200ms;
+                    font-size: 1rem;
+
+                    &:hover {
+                        background-color: #0000003c;
+                    }
+
+                    &:active {
+                        filter: brightness(0.8);
+                    }
+
+                    &:last-child:hover {
+                        background-color: #c00101db;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .window-content {
+            height: 100%;
+        }
+    }
+}

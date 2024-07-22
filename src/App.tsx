@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.scss';
 import LockScreen from './components/LockScreen';
 import Desktop from './components/Desktop';
+import { WindowProvider } from './providers/WindowProvider';
 
 function App() {
 
@@ -33,9 +34,12 @@ function App() {
         <LockScreen logged={logged} />
       }
 
+
       {
         systemProps.loggedIn &&
-        <Desktop />
+        <WindowProvider>
+          <Desktop />
+        </WindowProvider>
       }
     </>
   );
