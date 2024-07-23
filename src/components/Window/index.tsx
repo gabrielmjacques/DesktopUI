@@ -62,12 +62,13 @@ export default function Window({ window }: IWindowProps) {
                 });
                 setWindowPosition(position);
             }}
+            enableResizing={!isFullscreen}
             minWidth={400}
             minHeight={300}
             dragHandleClassName='info'
             bounds={'parent'}
-            className={`window-container ${activeWindow?.id === window.id ? 'active' : ''}`}
             onMouseDown={handleClick}
+            className={`window-container ${activeWindow?.id === window.id ? 'active' : ''} ${isFullscreen ? 'fullscreen' : 'windowed'}`}
             style={{
                 zIndex: windowOrder.findIndex(w => w.id === window.id),
                 borderRadius: isFullscreen ? 0 : 10,

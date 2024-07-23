@@ -36,7 +36,11 @@ function Desktop() {
                 {/* Add a button for each open window */}
                 {
                     openWindows.map(window => (
-                        <button key={window.id} onClick={() => handleTaskBarClick(window)}>
+                        <button
+                            key={window.id}
+                            onClick={() => handleTaskBarClick(window)}
+                            className={`${minimizedWindows.includes(window) ? 'minimized' : ''}`}
+                        >
                             {window.icon}
                         </button>
                     ))

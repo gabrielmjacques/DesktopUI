@@ -30,36 +30,16 @@
     }
 }
 
-@keyframes lockScreenFadeOut {
-    from {
-        opacity: 1;
-        top: 50%;
+@keyframes popUpScale {
+    0% {
+        transform: scale(0.8);
     }
 
-    to {
-        opacity: 0;
-        top: -10%;
-    }
-}
-
-@keyframes unlockScreenFadeIn {
-    from {
-        transform: translateY(50px);
-        opacity: 0;
+    50% {
+        transform: scale(1.1);
     }
 
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes taskBarPopUp {
-    from {
-        transform: translateY(130%);
-    }
-
-    to {
-        transform: translateY(0);
+    100% {
+        transform: scale(1);
     }
 }
