@@ -1,0 +1,55 @@
+.navigator-app {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    .navigator-header {
+        display: flex;
+        background-color: #ffffff;
+
+        width: 100%;
+
+        button {
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 30px;
+            font-size: 1.3rem;
+            padding: 5px;
+        }
+
+        input {
+            outline: none;
+            background-color: transparent;
+
+            flex: 1;
+            border-radius: 30px;
+            padding: 5px 15px;
+
+            border: 1px solid #0000003c;
+        }
+
+        .search-btn {
+            font-size: 1rem;
+        }
+    }
+
+    .navigator-content {
+        display: flex;
+        flex-direction: column;
+
+        flex: 1;
+
+        iframe {
+            border: none;
+
+            flex: 1;
+            width: 100%;
+            margin-bottom: 1.7rem;
+        }
+    }
+}

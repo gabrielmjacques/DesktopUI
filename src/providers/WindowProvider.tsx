@@ -37,9 +37,9 @@ export const WindowProvider: React.FC<{ children: ReactNode; }> = ({ children })
      * @param window Window to be closed
      */
     const closeWindow = (window: IWindow) => {
-        setOpenWindows(openWindows.filter(w => w.id !== window.id));
-        setWindowOrder(windowOrder.filter(w => w.id !== window.id));
-        setMinimizedWindows(minimizedWindows.filter(w => w.id !== window.id));
+        setOpenWindows(openWindows.filter(w => w.windowID !== window.windowID));
+        setWindowOrder(windowOrder.filter(w => w.windowID !== window.windowID));
+        setMinimizedWindows(minimizedWindows.filter(w => w.windowID !== window.windowID));
     };
 
     /**
@@ -47,7 +47,7 @@ export const WindowProvider: React.FC<{ children: ReactNode; }> = ({ children })
      * @param window Window to be brought to front
      */
     const bringWindowToFront = (window: IWindow) => {
-        setWindowOrder(windowOrder.filter(w => w.id !== window.id).concat(window));
+        setWindowOrder(windowOrder.filter(w => w.windowID !== window.windowID).concat(window));
         setActiveWindow(window);
     };
 
@@ -64,7 +64,7 @@ export const WindowProvider: React.FC<{ children: ReactNode; }> = ({ children })
      * @param window Window to be maximized
      */
     const maximizeWindow = (window: IWindow) => {
-        setMinimizedWindows(minimizedWindows.filter(w => w.id !== window.id));
+        setMinimizedWindows(minimizedWindows.filter(w => w.windowID !== window.windowID));
     };
 
     return (

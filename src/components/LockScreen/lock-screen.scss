@@ -11,6 +11,46 @@
         background-size: 140%;
     }
 
+    .hint {
+        position: absolute;
+        color: #fff;
+        display: flex;
+        align-items: center;
+
+        right: 40px;
+        bottom: 30px;
+
+        .icon {
+            opacity: 0.6;
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 3em;
+            transition-duration: 200ms;
+
+            filter: drop-shadow(0 0 3px #ffffff);
+
+            &:hover {
+                opacity: 1;
+
+                filter: drop-shadow(0 0 8px #ffffff);
+            }
+        }
+
+        p {
+            cursor: default;
+
+            opacity: 0;
+            transition-duration: 200ms;
+
+            transform: translateX(25px) scale(0.8);
+        }
+
+        &:has(.icon:hover) p {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+
     .lock-screen {
         position: absolute;
         color: #fff;
@@ -55,7 +95,7 @@
         }
     }
 
-    .unlock-screen {
+    .password-screen {
         display: none;
         color: #fff;
         text-align: center;
@@ -81,10 +121,12 @@
             transform: translate(-50%, -50%);
 
             .user {
-                width: 200px;
-                border-radius: 100%;
+                background-color: #00000061;
 
-                filter: invert(1) drop-shadow(0 0 10px #ffffff6f);
+                font-size: 12rem;
+                border-radius: 50%;
+
+                outline: 4px solid #0000003c;
             }
 
             .input {
@@ -143,7 +185,11 @@
 
                 .login-btn {
                     &:hover {
-                        background-color: #00000018;
+                        opacity: 0.5;
+                    }
+
+                    &:active {
+                        transform: scale(0.9);
                     }
                 }
 

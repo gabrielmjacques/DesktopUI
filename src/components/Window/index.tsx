@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { cloneElement, useState } from 'react';
 import { AiOutlineLine } from 'react-icons/ai';
 import { IoIosSquareOutline, IoMdClose } from 'react-icons/io';
 import { PiSubtractSquareDuotone } from 'react-icons/pi';
@@ -8,22 +8,21 @@ import { useWindows } from '../../providers/WindowProvider';
 import './window.scss';
 
 interface IWindowProps {
-    window: IWindow;
+    windowData: IWindow;
 }
 
-export default function Window({ window }: IWindowProps) {
+export default function Window({ windowData }: IWindowProps) {
     const clientWidth = document.body.clientWidth;
     const clientHeight = document.body.clientHeight;
 
-    const { closeWindow, activeWindow, bringWindowToFront, windowOrder, minimizeWindow, minimizedWindows } = useWindows();
-    const windowRef = useRef<HTMLDivElement>(null);
+    const windowsContext = useWindows();
 
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [windowSize, setWindowSize] = useState({ width: clientWidth / 2.3, height: clientHeight / 2 });
     const [windowPosition, setWindowPosition] = useState({ x: clientWidth / 2 - 400 + Math.random() * 100, y: clientHeight / 2 - 300 + Math.random() * 100 });
 
     const handleMinimize = () => {
-        minimizeWindow(window);
+        windowsContext.minimizeWindow(windowData);
     };
 
     const handleFullscreen = () => {
@@ -41,14 +40,15 @@ export default function Window({ window }: IWindowProps) {
     };
 
     const handleClose = () => {
-        closeWindow(window);
+        windowsContext.closeWindow(windowData);
     };
 
     const handleClick = () => {
-        bringWindowToFront(window);
+        windowsContext.bringWindowToFront(windowData);
     };
 
     return (
+
         <Rnd
             size={{ width: windowSize.width, height: windowSize.height }}
             position={{ x: windowPosition.x, y: windowPosition.y }}
@@ -68,19 +68,20 @@ export default function Window({ window }: IWindowProps) {
             dragHandleClassName='info'
             bounds={'parent'}
             onMouseDown={handleClick}
-            className={`window-container ${activeWindow?.id === window.id ? 'active' : ''} ${isFullscreen ? 'fullscreen' : 'windowed'}`}
+            className={`${windowData.windowID} window-container ${windowsContext.activeWindow?.windowID === windowData.windowID ? 'active' : ''} ${isFullscreen ? 'fullscreen' : 'windowed'}`}
             style={{
-                zIndex: windowOrder.findIndex(w => w.id === window.id),
+                zIndex: windowsContext.windowOrder.findIndex(w => w.windowID === windowData.windowID),
                 borderRadius: isFullscreen ? 0 : 10,
-                display: minimizedWindows.includes(window) ? 'none' : 'block'
+                display: windowsContext.minimizedWindows.includes(windowData) ? 'none' : 'block'
             }}
         >
-            <div ref={windowRef} className="window">
+            <div className="window">
                 <div className="window-header">
                     <div className="info" onDoubleClick={handleFullscreen}>
-                        <span>{window.name}</span>
+                        <span>{windowData.name}</span>
                     </div>
 
+                    {/* Buttons to minimize, maximize, and close the window */}
                     <div className="actions">
                         <button onClick={handleMinimize}>
                             <AiOutlineLine />
@@ -101,7 +102,10 @@ export default function Window({ window }: IWindowProps) {
                 </div>
 
                 <div className="window-content">
-                    Janela {window.name}
+
+                    {/* Application content */}
+                    {cloneElement(windowData.application, { windowData })}
+
                 </div>
             </div>
         </Rnd>

@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState, FormEvent } from 'react';
-import './lock-screen.scss';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { AiFillCaretRight, AiOutlineLoading } from 'react-icons/ai';
-import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import userImg from '../../assets/images/user.png';
+import { FaRegEye, FaRegEyeSlash, FaRegLightbulb } from 'react-icons/fa';
+import { PiUser } from 'react-icons/pi';
+import './lock-screen.scss';
 
 interface LockScreenProps {
     logged: () => void;
@@ -13,11 +13,10 @@ const LockScreen: React.FC<LockScreenProps> = ({ logged }) => {
 
     const [lockScreenProps, setLockScreenProps] = useState({
         className: 'lock-screen',
-        isLocked: true,
     });
 
-    const [unlockScreenProps, setUnlockScreenProps] = useState({
-        className: 'unlock-screen',
+    const [passwordScreenProps, setPasswordScreenProps] = useState({
+        className: 'password-screen',
         inputType: 'password' as 'password' | 'text',
         submited: false,
     });
@@ -30,7 +29,7 @@ const LockScreen: React.FC<LockScreenProps> = ({ logged }) => {
     };
 
     const changeInputType = () => {
-        setUnlockScreenProps((prev) => ({
+        setPasswordScreenProps((prev) => ({
             ...prev,
             inputType: prev.inputType === 'password' ? 'text' : 'password',
         }));
@@ -38,7 +37,7 @@ const LockScreen: React.FC<LockScreenProps> = ({ logged }) => {
 
     const submitForm = (e: FormEvent) => {
         e.preventDefault();
-        setUnlockScreenProps((prev) => ({
+        setPasswordScreenProps((prev) => ({
             ...prev,
             submited: true,
             className: prev.className + ' submited',
@@ -51,23 +50,23 @@ const LockScreen: React.FC<LockScreenProps> = ({ logged }) => {
 
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
-            if (lockScreenProps.isLocked && e.key === ' ') {
+            if (e.key === ' ') {
                 setLockScreenProps((prev) => ({
                     ...prev,
                     className: 'lock-screen active',
                 }));
 
                 setTimeout(() => {
-                    setUnlockScreenProps((prev) => ({
+                    setPasswordScreenProps((prev) => ({
                         ...prev,
-                        className: 'unlock-screen active',
+                        className: 'password-screen active',
                     }));
                 }, 500);
 
                 document.removeEventListener('keydown', handleKeyDown);
             }
         },
-        [lockScreenProps.isLocked]
+        []
     );
 
     useEffect(() => {
@@ -79,29 +78,35 @@ const LockScreen: React.FC<LockScreenProps> = ({ logged }) => {
 
     return (
         <main className='main'>
+            <div className="hint">
+                <p>Press <strong>space</strong> to unlock</p>
+
+                <FaRegLightbulb className='icon' />
+            </div>
+
             <div className={lockScreenProps.className}>
                 <h1>{getFormattedTime()}</h1>
                 <p>Welcome back, John Doe!</p>
             </div>
 
-            <div className={unlockScreenProps.className}>
+            <div className={passwordScreenProps.className}>
                 <div className='container'>
                     <div>
-                        <img src={userImg} alt='' className='user' />
+                        <PiUser className='user' />
                         <h2>John Doe</h2>
                     </div>
 
-                    {!unlockScreenProps.submited ? (
+                    {!passwordScreenProps.submited ? (
                         <form className='input' onSubmit={submitForm}>
                             <input
-                                type={unlockScreenProps.inputType}
+                                type={passwordScreenProps.inputType}
                                 id='login'
                                 placeholder='Password'
                                 autoComplete='off'
                             />
 
                             <button type='button' onClick={changeInputType} className='change-input-type-btn'>
-                                {unlockScreenProps.inputType === 'password' ? (
+                                {passwordScreenProps.inputType === 'password' ? (
                                     <FaRegEyeSlash className='icon' size={15} />
                                 ) : (
                                     <FaRegEye className='icon' size={15} />
