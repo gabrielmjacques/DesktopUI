@@ -11,20 +11,38 @@ import NetflixAPP from "../../Applications/Netlfix";
 import CalculatorAPP from "../../Applications/Calculator";
 
 function Desktop() {
-    const { openWindows, minimizedWindows, minimizeWindow, maximizeWindow, bringWindowToFront } = useWindows();
+    const windowsContext = useWindows();
 
     /**
      * Handle the click on the task bar button
      * @param window Window to be minimized or maximized
      */
     const handleTaskBarClick = (window: IWindow): void => {
-        if (minimizedWindows.includes(window)) {
-            bringWindowToFront(window);
-            maximizeWindow(window);
-            return;
-        }
+        // if (windowsContext.minimizedWindows.includes(window) && windowsContext.activeWindow == window) {
+        //     windowsContext.bringWindowToFront(window);
+        //     windowsContext.maximizeWindow(window);
+        //     windowsContext.activeWindow = window;
+        //     return;
 
-        minimizeWindow(window);
+        // }
+
+        if(windowsContext.minimizedWindows.includes(window)){
+            windowsContext.maximizeWindow(window);
+            windowsContext.setActiveWindow(window);
+            return;
+
+        } else if(windowsContext.activeWindow != window){
+            windowsContext.bringWindowToFront(window);
+            windowsContext.setActiveWindow(window);
+            return
+        }
+        
+
+        windowsContext.minimizeWindow(window);
+        
+        if(windowsContext.activeWindow == window){
+            windowsContext.setActiveWindow(null);
+        }
     };
 
     return (
@@ -43,11 +61,11 @@ function Desktop() {
 
                 {
                     // Add a button for each open window
-                    openWindows.map(window => (
+                    windowsContext.openWindows.map(window => (
                         <button
                             key={window.windowID}
                             onClick={() => handleTaskBarClick(window)}
-                            className={`${minimizedWindows.includes(window) ? 'minimized' : ''}`}
+                            className={`${windowsContext.openWindows.includes(window) ? 'open' : ''} ${windowsContext.activeWindow == window ? 'active' : ''}`}
                         >
                             {window.icon}
                         </button>
@@ -57,7 +75,7 @@ function Desktop() {
 
             {
                 // Display each open window
-                openWindows.map(window => (
+                windowsContext.openWindows.map(window => (
                     <Window key={window.windowID} windowData={window} />
                 ))
             }

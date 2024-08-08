@@ -3,6 +3,7 @@
     overflow: hidden;
 
     border-radius: 10px;
+    transition: opacity 200ms;
 
     box-shadow: 0 0 30px 0 #00000020;
 
@@ -10,11 +11,22 @@
         box-shadow: 0 0 30px 0 #0000004d;
     }
 
+    &:not(.active){
+        opacity: 0.9;
+        filter: brightness(0.9);
+    }
+
+    &.fullscreen{
+        border-radius: 0;
+    }
+
     .window {
         display: flex;
         flex-direction: column;
 
         height: 100%;
+
+        
 
         .window-header {
             font-weight: bold;

@@ -6,7 +6,7 @@ interface IWindowContextProps {
     openWindow: (window: IWindow) => void;
     closeWindow: (window: IWindow) => void;
     activeWindow: IWindow | null;
-    setActiveWindow: (window: IWindow) => void;
+    setActiveWindow: (window: IWindow | null) => void;
     windowOrder: IWindow[];
     bringWindowToFront: (window: IWindow) => void;
     minimizeWindow: (window: IWindow) => void;
@@ -52,7 +52,7 @@ export const WindowProvider: React.FC<{ children: ReactNode; }> = ({ children })
     };
 
     /**
-     * Minimize a window
+     * Minimize a window (add to minimized windows)
      * @param window Window to be minimized
      */
     const minimizeWindow = (window: IWindow) => {
@@ -60,11 +60,12 @@ export const WindowProvider: React.FC<{ children: ReactNode; }> = ({ children })
     };
 
     /**
-     * Maximize a window
+     * Maximize a window (remove from minimized windows)
      * @param window Window to be maximized
      */
     const maximizeWindow = (window: IWindow) => {
         setMinimizedWindows(minimizedWindows.filter(w => w.windowID !== window.windowID));
+        bringWindowToFront(window);
     };
 
     return (

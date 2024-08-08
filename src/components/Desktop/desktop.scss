@@ -23,7 +23,7 @@
     }
 
     .task-bar {
-        background-color: #0000003e;
+        background-color: #00000000;
         display: flex;
         justify-content: center;
         width: fit-content;
@@ -36,8 +36,8 @@
         margin-bottom: 15px;
 
         box-shadow: 0 0 10px 2px #00000048;
-        border: 1px solid #0000000c;
-        backdrop-filter: blur(10px);
+        border: 2px solid #0000000c;
+        backdrop-filter: blur(10px) brightness(70%);
         transform: translateY(130%);
         animation: taskBarPopUp 500ms 500ms forwards ease;
 
@@ -48,33 +48,37 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
 
             width: 60px;
             transition-duration: 200ms;
 
-            &.minimized {
-                background-color: #ffffff10;
-
-                animation: popUpScale 500ms forwards ease;
-
+            &.open{
                 &::after {
                     content: '';
                     position: absolute;
                     background-color: #ffffff52;
 
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 50%;
-                    top: -10px;
-                    right: -10px;
-                    opacity: 0;
+                    bottom: 10%;
+                    width: 20%;
+                    height: 2px;
+                    border-radius: 20px;
 
-                    animation: fade 300ms forwards ease-out 0.5s;
+                    transition-duration: 300ms;
+                }
+            }
+
+            &.open.active{
+                background-color: #ffffff10;
+                
+                &::after {
+                    width: 50%;
+                    background-color: #006b99;
                 }
             }
 
             &:hover {
-                background-color: #ffffff09;
+                background-color: #ffffff05;
 
                 .icon {
                     scale: 1.1;

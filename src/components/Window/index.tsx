@@ -71,7 +71,6 @@ export default function Window({ windowData }: IWindowProps) {
             className={`${windowData.windowID} window-container ${windowsContext.activeWindow?.windowID === windowData.windowID ? 'active' : ''} ${isFullscreen ? 'fullscreen' : 'windowed'}`}
             style={{
                 zIndex: windowsContext.windowOrder.findIndex(w => w.windowID === windowData.windowID),
-                borderRadius: isFullscreen ? 0 : 10,
                 display: windowsContext.minimizedWindows.includes(windowData) ? 'none' : 'block'
             }}
         >
