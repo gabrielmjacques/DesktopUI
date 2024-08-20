@@ -18,14 +18,6 @@ function Desktop() {
      * @param window Window to be minimized or maximized
      */
     const handleTaskBarClick = (window: IWindow): void => {
-        // if (windowsContext.minimizedWindows.includes(window) && windowsContext.activeWindow == window) {
-        //     windowsContext.bringWindowToFront(window);
-        //     windowsContext.maximizeWindow(window);
-        //     windowsContext.activeWindow = window;
-        //     return;
-
-        // }
-
         if(windowsContext.minimizedWindows.includes(window)){
             windowsContext.maximizeWindow(window);
             windowsContext.setActiveWindow(window);
@@ -51,7 +43,7 @@ function Desktop() {
             {/* Applications that will be displayed on the desktop */}
             <div className="items">
                 <AppItem name={"Netflix"} icon={<RiNetflixFill className="icon" />} application={<NetflixAPP />} />
-                <AppItem name="Calculator" icon={<FaCalculator className="icon" />} application={<CalculatorAPP />} />
+                <AppItem name="Calculator" icon={<FaCalculator className="icon" />} isResizable={false} defaultSize={{width:300, height: 500}} application={<CalculatorAPP />} />
             </div>
 
             {/* TaskBar */}

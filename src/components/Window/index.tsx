@@ -18,8 +18,10 @@ export default function Window({ windowData }: IWindowProps) {
     const windowsContext = useWindows();
 
     const [isFullscreen, setIsFullscreen] = useState(false);
-    const [windowSize, setWindowSize] = useState({ width: clientWidth / 2.3, height: clientHeight / 2 });
     const [windowPosition, setWindowPosition] = useState({ x: clientWidth / 2 - 400 + Math.random() * 100, y: clientHeight / 2 - 300 + Math.random() * 100 });
+    const [windowSize, setWindowSize] = useState(
+        windowData.defaultSize ? { width: windowData.defaultSize.width, height: windowData.defaultSize.height } : { width: clientWidth / 2.3, height: clientHeight / 2 }
+    );
 
     const handleMinimize = () => {
         windowsContext.minimizeWindow(windowData);
@@ -62,9 +64,9 @@ export default function Window({ windowData }: IWindowProps) {
                 });
                 setWindowPosition(position);
             }}
-            enableResizing={!isFullscreen}
-            minWidth={400}
-            minHeight={300}
+            enableResizing={!isFullscreen && windowData.isResizable}
+            minWidth={windowData.defaultSize?.width || 800}
+            minHeight={windowData.defaultSize?.height || 600}
             dragHandleClassName='info'
             bounds={'parent'}
             onMouseDown={handleClick}
@@ -86,7 +88,7 @@ export default function Window({ windowData }: IWindowProps) {
                             <AiOutlineLine />
                         </button>
 
-                        <button onClick={handleFullscreen}>
+                        <button onClick={handleFullscreen} disabled={!windowData.isResizable}>
                             {
                                 isFullscreen
                                     ? <PiSubtractSquareDuotone />

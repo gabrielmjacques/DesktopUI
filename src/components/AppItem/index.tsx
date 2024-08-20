@@ -11,7 +11,7 @@ interface IAppItemProps {
     isResizable?: boolean;
 }
 
-function AppItem({ icon, name, application }: IAppItemProps) {
+function AppItem({ icon, name, application, isResizable, defaultSize }: IAppItemProps) {
     const { openWindow } = useWindows();
 
     const openApp = () => {
@@ -19,7 +19,9 @@ function AppItem({ icon, name, application }: IAppItemProps) {
             name,
             icon,
             windowID: `${name.toLowerCase()}-${Date.now()}-${Math.random().toString(36).substring(2)}`,
-            application: application
+            application: application,
+            defaultSize: defaultSize || { width: 800, height: 600 },
+            isResizable: isResizable != undefined ? isResizable : true
         };
 
         openWindow(window);
