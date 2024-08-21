@@ -9,6 +9,7 @@ import { FaCalculator } from "react-icons/fa";
 import './desktop.scss';
 import NetflixAPP from "../../Applications/Netlfix";
 import CalculatorAPP from "../../Applications/Calculator";
+import IAChat from "../IAChat/IAChat";
 
 function Desktop() {
     const windowsContext = useWindows();
@@ -18,32 +19,30 @@ function Desktop() {
      * @param window Window to be minimized or maximized
      */
     const handleTaskBarClick = (window: IWindow): void => {
-        if(windowsContext.minimizedWindows.includes(window)){
+        if (windowsContext.minimizedWindows.includes(window)) {
             windowsContext.maximizeWindow(window);
             windowsContext.setActiveWindow(window);
             return;
 
-        } else if(windowsContext.activeWindow != window){
+        } else if (windowsContext.activeWindow != window) {
             windowsContext.bringWindowToFront(window);
             windowsContext.setActiveWindow(window);
-            return
+            return;
         }
-        
+
 
         windowsContext.minimizeWindow(window);
-        
-        if(windowsContext.activeWindow == window){
-            windowsContext.setActiveWindow(null);
-        }
     };
 
     return (
         <main className="desktop">
 
+            <IAChat />
+
             {/* Applications that will be displayed on the desktop */}
             <div className="items">
                 <AppItem name={"Netflix"} icon={<RiNetflixFill className="icon" />} application={<NetflixAPP />} />
-                <AppItem name="Calculator" icon={<FaCalculator className="icon" />} isResizable={false} defaultSize={{width:300, height: 500}} application={<CalculatorAPP />} />
+                <AppItem name="Calculator" icon={<FaCalculator className="icon" />} isResizable={false} defaultSize={{ width: 300, height: 500 }} application={<CalculatorAPP />} />
             </div>
 
             {/* TaskBar */}

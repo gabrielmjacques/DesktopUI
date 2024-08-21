@@ -57,6 +57,7 @@ export const WindowProvider: React.FC<{ children: ReactNode; }> = ({ children })
      */
     const minimizeWindow = (window: IWindow) => {
         setMinimizedWindows([...minimizedWindows, window]);
+        setActiveWindow(null);
     };
 
     /**
