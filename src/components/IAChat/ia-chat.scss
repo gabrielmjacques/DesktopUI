@@ -74,12 +74,21 @@ $radius: 15px;
             .content {
                 border-radius: 10px;
 
-
                 span {
                     font-weight: bold;
 
                     font-size: 0.85rem;
                     opacity: 0.7;
+                }
+
+                a {
+                    color: #fff;
+                    font-weight: bold;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
 
