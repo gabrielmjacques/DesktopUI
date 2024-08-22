@@ -30,13 +30,13 @@ function App() {
       <div className={systemProps.btClassName}></div>
 
       {
-        !systemProps.loggedIn &&
-        <LockScreen logged={logged} />
+        // !systemProps.loggedIn &&
+        // <LockScreen logged={logged} />
       }
 
 
       {
-        systemProps.loggedIn &&
+        // systemProps.loggedIn &&
         <WindowProvider>
           <Desktop />
         </WindowProvider>
