@@ -28,16 +28,18 @@ function Message({ message, sender }: MessageProps) {
 
 export default function IAChat() {
     const previousTexts: Content[] = [
-        { role: 'user', parts: [{ text: 'Você é um robo que responde em português e é brincalhão, mas sempre prestativo e preciso em suas respostas' }] }
+        { role: "user", parts: [{ text: "You are a robot that responds in the user's language and is playful, but always helpful and accurate in your responses" }] }
     ];
 
     const [input, setInput] = useState('');
-    const [messages, setMessages] = useState<MessageProps[]>([
-        { message: 'Olá, como posso ajudar?', sender: 'IA' }
-    ]);
+    const [messages, setMessages] = useState<MessageProps[]>([]);
+
+    const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
 
     const addMessage = (message: string, sender: string) => {
         setMessages((prev) => [...prev, { message, sender }]);
+        previousTexts.push({ role: sender == 'user' ? sender : 'model', parts: [{ text: message }] });
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,19 +50,18 @@ export default function IAChat() {
         addMessage(input, 'You');
         setInput('');
 
-        const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || '');
+        const genAI = new GoogleGenerativeAI(API_KEY || '');
         const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
         const chat = model.startChat({
             history: previousTexts,
             generationConfig: {
-                maxOutputTokens: 100
+                maxOutputTokens: 100,
             }
         });
 
         chat.sendMessage(input)
             .then(result => {
                 const text = result.response.text();
-                previousTexts.push({ role: 'user', parts: [{ text: input }] });
 
                 addMessage(text, 'IA');
             });
@@ -70,6 +71,17 @@ export default function IAChat() {
         const chat = document.querySelector('.chat');
         chat?.scrollTo({ top: chat.scrollHeight, behavior: 'smooth' });
     }, [messages]);
+
+    useEffect(() => {
+        if (API_KEY) {
+            addMessage("Hi! How can i help you?", "IA");
+        }
+
+        if (!API_KEY) {
+            addMessage("It looks like you haven't set up an API Key", "IA");
+            addMessage("Clone [this repository](https://github.com/gabrielmjacques/desktopui) and configure it", "IA");
+        }
+    }, [API_KEY]);
 
     return (
         <>
@@ -89,7 +101,9 @@ export default function IAChat() {
                         type="text"
                         placeholder='Enter your prompt here'
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={(e) => {
+                            API_KEY ? setInput(e.target.value) : setInput('');
+                        }}
                     />
                     <button type="submit"><IoMdSend /></button>
                 </div>
